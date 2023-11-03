@@ -6,12 +6,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
+@Transactional
 public class AccountRepositoryTests {
 
     @Autowired
@@ -23,11 +25,16 @@ public class AccountRepositoryTests {
     @Test
     public void shouldSaveAccount() {
 
-        User user = new User();
-        user.setFirstName("Test");
-        user.setLastName("Testovic");
-        user.setBirthDate(LocalDate.of(1980, 1, 1));
-        User savedUser = userRepository.save(user);
+        User newUser = new User();
+        newUser.setFirstName("Kirin");
+        newUser.setLastName("Dorian");
+        newUser.setBirthDate(LocalDate.of(1990, 5, 12));
+        newUser.setPassport("123456789");
+        newUser.setPhoneNumber("+1234567890");
+        newUser.setEmail("kirin.dorian@example.com");
+        newUser.setAddress("123 Main St");
+        User savedUser = userRepository.save(newUser);
+
 
 
         Account newAccount = new Account();

@@ -30,18 +30,21 @@ public class CardRepositoryTests {
     @Test
     public void shouldSaveAndFindCard() {
 
-        User user = new User();
-        user.setFirstName("Test");
-        user.setLastName("Testovic");
-        user.setBirthDate(LocalDate.of(1980, 1, 1));
-        User savedUser = userRepository.save(user);
+        User newUser = new User();
+        newUser.setFirstName("Kirin");
+        newUser.setLastName("Dorian");
+        newUser.setBirthDate(LocalDate.of(1990, 5, 12));
+        newUser.setPassport("123456789");
+        newUser.setPhoneNumber("+1234567890");
+        newUser.setEmail("kirin.dorian@example.com");
+        newUser.setAddress("123 Main St");
 
         Account newAccount = new Account();
         newAccount.setName("Savings Account");
         newAccount.setIBAN("CZ1234256789");
         newAccount.setBalance(new BigDecimal("1500.00"));
         newAccount.setCurrency("CZK");
-        newAccount.setUser(savedUser);
+        newAccount.setUser(newUser);
 
 
         Account savedAccount = accountRepository.save(newAccount);
