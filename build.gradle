@@ -2,9 +2,12 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '2.7.7'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+
+    id 'io.freefair.lombok' version '6.4.1'
+
 }
 
-group = 'cz.cvut.fit.tjv.otliaart'
+group = 'com.example.bankback'
 version = '0.0.1-SNAPSHOT'
 
 repositories {
@@ -20,7 +23,19 @@ dependencies {
     implementation 'org.modelmapper:modelmapper:3.1.0'
     implementation 'org.postgresql:postgresql'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.8'
+
+
 }
+
+
 
 tasks.named('test') {
     useJUnitPlatform()
