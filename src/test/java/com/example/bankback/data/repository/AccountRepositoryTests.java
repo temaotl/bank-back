@@ -39,6 +39,7 @@ public class AccountRepositoryTests {
 
         Account newAccount = new Account();
         newAccount.setName("Savings Account");
+        newAccount.setAccountNumber("123455");
         newAccount.setIBAN("CZ123456789");
         newAccount.setBalance(new BigDecimal("1000.00"));
         newAccount.setCurrency("CZK");

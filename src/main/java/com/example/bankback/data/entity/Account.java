@@ -10,6 +10,9 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String accountNumber;
     @Column(nullable = false)
     private String IBAN;
 
@@ -33,6 +36,14 @@ public class Account {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
     }
 
     public String getIBAN() {
@@ -83,6 +94,8 @@ public class Account {
         Account account = (Account) o;
 
         if (!Objects.equals(id, account.id)) return false;
+        if (!Objects.equals(accountNumber, account.accountNumber))
+            return false;
         if (!Objects.equals(IBAN, account.IBAN)) return false;
         if (!Objects.equals(name, account.name)) return false;
         if (!Objects.equals(balance, account.balance)) return false;
@@ -93,6 +106,7 @@ public class Account {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (accountNumber != null ? accountNumber.hashCode() : 0);
         result = 31 * result + (IBAN != null ? IBAN.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (balance != null ? balance.hashCode() : 0);
@@ -101,11 +115,11 @@ public class Account {
         return result;
     }
 
-
     @Override
     public String toString() {
         return "Account{" +
                 "id=" + id +
+                ", accountNumber='" + accountNumber + '\'' +
                 ", IBAN='" + IBAN + '\'' +
                 ", name='" + name + '\'' +
                 ", balance=" + balance +
