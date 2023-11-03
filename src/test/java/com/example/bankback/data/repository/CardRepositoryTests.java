@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Optional;
@@ -15,6 +16,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
+@Transactional
 public class CardRepositoryTests {
 
     @Autowired
@@ -28,37 +30,39 @@ public class CardRepositoryTests {
     @Test
     public void shouldSaveAndFindCard() {
 
+        User user = new User();
+        user.setFirstName("Test");
+        user.setLastName("Testovic");
+        user.setBirthDate(LocalDate.of(1980, 1, 1));
+        User savedUser = userRepository.save(user);
+
         Account newAccount = new Account();
-        newAccount.setIBAN("IBAN123");
-        newAccount.setName("Test Account");
-        newAccount.setBalance(new BigDecimal("1000"));
-        newAccount.setCurrency("USD");
+        newAccount.setName("Savings Account");
+        newAccount.setIBAN("CZ1234256789");
+        newAccount.setBalance(new BigDecimal("1500.00"));
+        newAccount.setCurrency("CZK");
+        newAccount.setUser(savedUser);
 
 
-
-        Optional<User> user = userRepository.findById(1L);
-
-        // Сохраняем аккаунт
         Account savedAccount = accountRepository.save(newAccount);
 
-        // Создаем новую карту
+
         Card newCard = new Card();
         newCard.setName("Test Card");
         newCard.setBlocked(false);
         newCard.setAccount(savedAccount);
 
-        // Сохраняем карту
+
         Card savedCard = cardRepository.save(newCard);
 
-        // Проверяем, что ID новой карты не равно null
+
         assertThat(savedCard.getId()).isNotNull();
 
-        // Проверяем, что данные карты соответствуют данным, которые мы сохранили
+
         assertThat(savedCard.getName()).isEqualTo(newCard.getName());
         assertThat(savedCard.isBlocked()).isEqualTo(newCard.isBlocked());
         assertThat(savedCard.getAccount()).isEqualTo(savedAccount);
 
-        // Проверяем, что можно найти карту по ID
         Optional<Card> foundCard = cardRepository.findById(savedCard.getId());
         assertThat(foundCard.isPresent()).isTrue();
         assertThat(foundCard.get()).isEqualTo(savedCard);
