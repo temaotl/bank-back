@@ -9,14 +9,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Transactional(readOnly = true)
 public abstract class AbstractCrudService<D, K, E, R extends CrudRepository<E, K>> {
