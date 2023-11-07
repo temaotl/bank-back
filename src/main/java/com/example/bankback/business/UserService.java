@@ -1,6 +1,8 @@
 package com.example.bankback.business;
 
 import com.example.bankback.data.dto.UserDTO;
+import com.example.bankback.data.dto.converters.DtoToUserConverter;
+import com.example.bankback.data.entity.Card;
 import com.example.bankback.data.entity.User;
 import com.example.bankback.data.repository.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -17,11 +19,14 @@ public class UserService extends AbstractCrudService<UserDTO, Long, User, UserRe
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
 
+
+
     @Autowired
     public UserService(UserRepository userRepository, ModelMapper modelMapper) {
         super(userRepository, dto -> modelMapper.map(dto, User.class), entity -> modelMapper.map(entity, UserDTO.class));
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
+
     }
 
     @Override
@@ -29,7 +34,9 @@ public class UserService extends AbstractCrudService<UserDTO, Long, User, UserRe
     public void update(UserDTO dto, Long id) {
         User existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with id " + id));
-        modelMapper.map(dto, existingUser);
+        User updatedUser = toEntityConverter.apply(dto);
+        updatedUser.setId(existingUser.getId());
+        modelMapper.map(updatedUser, existingUser);
         userRepository.save(existingUser);
     }
 }
