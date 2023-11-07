@@ -5,12 +5,12 @@ import com.example.bankback.data.dto.converters.CardToDtoConverter;
 import com.example.bankback.data.dto.converters.DtoToCardConverter;
 import com.example.bankback.data.entity.Card;
 import com.example.bankback.data.repository.CardRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
+import org.jvnet.hk2.annotations.Service;
+
 
 import javax.transaction.Transactional;
-import java.util.function.Function;
 
+@Service
 public class CardService extends  AbstractCrudService<CardDTO,Long, Card, CardRepository>  {
 
 

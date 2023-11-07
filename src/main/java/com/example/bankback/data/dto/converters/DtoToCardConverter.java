@@ -26,12 +26,11 @@ public class DtoToCardConverter implements Function<CardDTO, Card> {
 
     @Override
     public Card apply(CardDTO cardDTO) {
-        Card  card = modelMapper.map(cardDTO,Card.class);
-        if(card.getAccount()!=null)
-        {
-            Optional<Account> accountOptinal = accountRepository.findById(cardDTO.getAccountId());
-            accountOptinal.ifPresent(card::setAccount);
+        Card card = modelMapper.map(cardDTO, Card.class);
+        if (cardDTO.getAccountId() != null) {
+            Optional<Account> accountOptional = accountRepository.findById(cardDTO.getAccountId());
+            accountOptional.ifPresent(card::setAccount);
         }
-        return  card;
+        return card;
     }
 }
