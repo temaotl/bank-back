@@ -5,7 +5,7 @@ import com.example.bankback.data.dto.converters.CardToDtoConverter;
 import com.example.bankback.data.dto.converters.DtoToCardConverter;
 import com.example.bankback.data.entity.Card;
 import com.example.bankback.data.repository.CardRepository;
-import org.jvnet.hk2.annotations.Service;
+import org.springframework.stereotype.Service;
 
 
 import javax.transaction.Transactional;
@@ -24,7 +24,7 @@ public class CardService extends  AbstractCrudService<CardDTO,Long, Card, CardRe
     @Transactional
     public void update(CardDTO cardDTO, Long id) {
         Card existingCard = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Account not found with id " + id));
+                .orElseThrow(() -> new RuntimeException("Card not found with id " + id));
 
         Card updatedCard = toEntityConverter.apply(cardDTO);
         updatedCard.setId(existingCard.getId());
