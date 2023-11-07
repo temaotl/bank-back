@@ -43,7 +43,7 @@ public class AccountServiceTest {
 
         assertNotNull(createdUser.getId(), "User should be successfully created with an ID");
 
-        // Создаем аккаунт с ID только что созданного пользователя
+
         accountDTO = new AccountDTO();
         accountDTO.setAccountNumber("1234567890");
         accountDTO.setIBAN("DE89 3704 0044 0532 0130 00");
