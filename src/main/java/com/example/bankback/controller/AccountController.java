@@ -2,8 +2,10 @@ package com.example.bankback.controller;
 
 
 import com.example.bankback.business.AccountService;
+import com.example.bankback.business.TransactionService;
 import com.example.bankback.data.dto.AccountDTO;
 import com.example.bankback.data.dto.AccountReadDTO;
+import com.example.bankback.data.dto.TransactionDTO;
 import com.example.bankback.data.dto.converters.account.AccountToDtoConverter;
 import com.example.bankback.data.dto.converters.account.AccountToReadDtoConverter;
 import com.example.bankback.data.dto.converters.account.DtoToAccountConverter;
@@ -15,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.function.Function;
@@ -24,15 +27,18 @@ import java.util.function.Function;
 public class AccountController extends AbstractCrudController<Account, AccountDTO,AccountReadDTO, Long, AccountRepository> {
 
     private final AccountService service;
+    private final TransactionService transactionService;
 
     @Autowired
     protected AccountController(AccountService service,
+                                TransactionService transactionService,
                                 AccountRepository repository,
                                 AccountToDtoConverter toDtoConverter,
                                 AccountToReadDtoConverter toReadDtoConverter,
                                 DtoToAccountConverter toEntityConverter) {
         super(repository, toDtoConverter, toReadDtoConverter, toEntityConverter);
         this.service = service;
+        this.transactionService = transactionService;
     }
 
     @Override
@@ -59,5 +65,14 @@ public class AccountController extends AbstractCrudController<Account, AccountDT
         List<AccountReadDTO> accounts = service.findAllByUserId(userId);
         return ResponseEntity.ok(accounts);
     }
+
+
+    @GetMapping("/{id}/transactions")
+    public ResponseEntity<List<TransactionDTO>> getAccountTransactions(@PathVariable Long id) {
+        List<TransactionDTO> transactions = transactionService.findAllByAccountId(id);
+        return ResponseEntity.ok(transactions);
+    }
+
+
 }
 

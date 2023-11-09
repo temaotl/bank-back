@@ -18,7 +18,7 @@ import java.util.function.Function;
 
 
 @RestController
-@RequestMapping("/transaction")
+@RequestMapping("/api/transaction")
 public class TransactionController extends AbstractCrudController<Transaction, TransactionDTO,TransactionDTO, Long, TransactionRepository> {
 
     private  final TransactionService service;

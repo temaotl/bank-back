@@ -1,7 +1,9 @@
 package com.example.bankback.business;
 
 import com.example.bankback.data.dto.TransactionDTO;
+import com.example.bankback.data.entity.Account;
 import com.example.bankback.data.entity.Transaction;
+import com.example.bankback.data.repository.AccountRepository;
 import com.example.bankback.data.repository.TransactionRepository;
 import com.example.bankback.data.dto.converters.transaction.DtoToTransactionConverter;
 import com.example.bankback.data.dto.converters.transaction.TransactionToDtoConverter;
@@ -11,18 +13,25 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TransactionService extends AbstractCrudService<TransactionDTO, Long, Transaction, TransactionRepository> {
 
     private final ModelMapper modelMapper;
+    private final AccountRepository accountRepository;
+
     @Autowired
     public TransactionService(TransactionRepository repository,
                               DtoToTransactionConverter toEntityConverter,
                               TransactionToDtoConverter toDtoConverter,
-                              ModelMapper modelMapper) {
+                              ModelMapper modelMapper,
+                              AccountRepository accountRepository
+                              ) {
         super(repository, toEntityConverter, toDtoConverter);
         this.modelMapper = modelMapper;
+        this.accountRepository=accountRepository;
     }
 
     @Override
@@ -35,5 +44,17 @@ public class TransactionService extends AbstractCrudService<TransactionDTO, Long
         modelMapper.map(updatedTransaction, existingTransaction);
         repository.save(existingTransaction);
     }
+
+    public List<TransactionDTO> findAllByAccountId(Long accountId) {
+        Account account = accountRepository.findById(accountId)
+                .orElseThrow(() -> new EntityNotFoundException("Account not found with id " + accountId));
+
+        String accountIban = account.getIBAN();
+        List<Transaction> transactions = repository.findByCreditorOrDebtor(accountIban, accountIban);
+        return transactions.stream()
+                .map(toDtoConverter)
+                .collect(Collectors.toList());
+    }
+
 }
 
