@@ -6,7 +6,6 @@ import com.example.bankback.data.dto.converters.DtoToUserConverter;
 import com.example.bankback.data.dto.converters.UserToDtoConverter;
 import com.example.bankback.data.entity.User;
 import com.example.bankback.data.repository.UserRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
