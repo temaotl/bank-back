@@ -1,7 +1,9 @@
 package com.example.bankback.business;
 
 import com.example.bankback.data.dto.AccountDTO;
+import com.example.bankback.data.dto.AccountReadDTO;
 import com.example.bankback.data.dto.converters.account.AccountToDtoConverter;
+import com.example.bankback.data.dto.converters.account.AccountToReadDtoConverter;
 import com.example.bankback.data.dto.converters.account.DtoToAccountConverter;
 import com.example.bankback.data.entity.Account;
 import com.example.bankback.data.repository.AccountRepository;
@@ -11,17 +13,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 
 @Service
 public class AccountService extends AbstractCrudService<AccountDTO, Long, Account, AccountRepository> {
+    private final AccountToReadDtoConverter accountToDtoConverter;
 
     @Autowired
-    public AccountService(AccountRepository repository,
+    public AccountService(AccountToReadDtoConverter accountToReadDtoConverter,AccountRepository repository,
                           DtoToAccountConverter dtoToAccountConverter,
                           AccountToDtoConverter accountToDtoConverter) {
         super(repository, dtoToAccountConverter, accountToDtoConverter);
+        this.accountToDtoConverter = accountToReadDtoConverter;
     }
 
     @Override
@@ -34,14 +39,10 @@ public class AccountService extends AbstractCrudService<AccountDTO, Long, Accoun
         repository.save(updatedAccount);
     }
 
-    public List<AccountDTO> findAllByUserId(Long userId) {
+    public List<AccountReadDTO> findAllByUserId(Long userId) {
         return repository.findByUserId(userId).stream()
-                .map(toDtoConverter)
+                .map(accountToDtoConverter)
                 .collect(Collectors.toList());
     }
 
-/*    @Override
-    public Optional<AccountDTO> readById(Long id) {
-        return repository.findById(id).map(toDtoConverter);
-    }*/
 }

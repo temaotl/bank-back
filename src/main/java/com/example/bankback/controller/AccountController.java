@@ -55,8 +55,8 @@ public class AccountController extends AbstractCrudController<Account, AccountDT
     }
 
     @GetMapping(params = "userId")
-    public ResponseEntity<List<AccountDTO>> getAccountsByUserId(@RequestParam Long userId) {
-        List<AccountDTO> accounts = service.findAllByUserId(userId);
+    public ResponseEntity<List<AccountReadDTO>> getAccountsByUserId(@RequestParam Long userId) {
+        List<AccountReadDTO> accounts = service.findAllByUserId(userId);
         return ResponseEntity.ok(accounts);
     }
 }
