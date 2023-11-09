@@ -26,7 +26,6 @@ public class TransactionDTO {
     @Size(max = 100, message = "Debtor name must be up to 100 characters long")
     private String debtor;
 
-    @NotNull(message = "Transaction creation date is mandatory")
     private LocalDateTime dateCreated;
 
     private LocalDateTime dateExecuted;
@@ -34,5 +33,5 @@ public class TransactionDTO {
     @NotNull(message = "Currency is mandatory")
     @Size(min = 3, max = 3, message = "Currency must be a valid ISO currency code")
     private String currency;
-
 }
+
