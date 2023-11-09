@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Service
 public class AccountService extends AbstractCrudService<AccountDTO, Long, Account, AccountRepository> {
@@ -28,5 +31,11 @@ public class AccountService extends AbstractCrudService<AccountDTO, Long, Accoun
         Account updatedAccount = toEntityConverter.apply(accountDTO);
         updatedAccount.setId(existingAccount.getId());
         repository.save(updatedAccount);
+    }
+
+    public List<AccountDTO> findAllByUserId(Long userId) {
+        return repository.findByUserId(userId).stream()
+                .map(toDtoConverter)
+                .collect(Collectors.toList());
     }
 }

@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.*;
 
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
-@RequestMapping("/accounts")
+@RequestMapping("/api/accounts")
 public class AccountController extends AbstractCrudController<Account, AccountDTO, Long, AccountRepository> {
 
     private final AccountService accountService;
@@ -52,5 +53,12 @@ public class AccountController extends AbstractCrudController<Account, AccountDT
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+
+    @GetMapping(params = "userId")
+    public ResponseEntity<List<AccountDTO>> getAccountsByUserId(@RequestParam Long userId) {
+        List<AccountDTO> accounts = accountService.findAllByUserId(userId);
+        return ResponseEntity.ok(accounts);
+    }
+
 }
 
