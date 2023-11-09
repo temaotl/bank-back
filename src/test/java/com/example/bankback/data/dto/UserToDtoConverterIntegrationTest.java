@@ -26,10 +26,9 @@ class UserToDtoConverterIntegrationTest {
         user.setId(1L);
         user.setFirstName("Test");
         user.setLastName("Testovic");
-        user.setEmail("test@example.com");
+
         user.setBirthDate(LocalDate.of(1990, 1, 1));
-        user.setPassport("1234 567890");
-        user.setPhoneNumber("123-456-7890");
+
 
         UserDTO userDTO = userToDtoConverter.apply(user);
 
@@ -37,9 +36,7 @@ class UserToDtoConverterIntegrationTest {
         assertThat(userDTO.getId()).isEqualTo(user.getId());
         assertThat(userDTO.getFirstName()).isEqualTo(user.getFirstName());
         assertThat(userDTO.getLastName()).isEqualTo(user.getLastName());
-        assertThat(userDTO.getEmail()).isEqualTo(user.getEmail());
         assertThat(userDTO.getBirthDate()).isEqualTo(user.getBirthDate());
-        assertThat(userDTO.getPassport()).isEqualTo(user.getPassport());
-        assertThat(userDTO.getPhoneNumber()).isEqualTo(user.getPhoneNumber());
+
     }
 }

@@ -25,19 +25,14 @@ public class AccountServiceTest {
     private UserService userService;
 
     private AccountDTO accountDTO;
-    private UserDTO userDTO;
 
     @BeforeEach
     public void setUp() {
 
-        userDTO = new UserDTO();
+        UserDTO userDTO = new UserDTO();
         userDTO.setFirstName("John");
         userDTO.setLastName("Doe");
         userDTO.setBirthDate(LocalDate.of(1980, 1, 1));
-        userDTO.setPassport("1234567890");
-        userDTO.setPhoneNumber("123-456-7890");
-        userDTO.setEmail("john.doe@example.com");
-        userDTO.setAddress("123 Example St, Example City, EX");
         UserDTO createdUser = userService.create(userDTO);
 
 

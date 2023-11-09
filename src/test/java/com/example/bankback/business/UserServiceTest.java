@@ -28,10 +28,7 @@ public class UserServiceTest {
         userDTO.setFirstName("John");
         userDTO.setLastName("Shepard");
         userDTO.setBirthDate(LocalDate.of(1980, 1, 1));
-        userDTO.setPassport("1234567890");
-        userDTO.setPhoneNumber("123-456-7890");
-        userDTO.setEmail("john.shepard@ishoudgo.com");
-        userDTO.setAddress("123 Tali St, Presidium, Citadel");
+
     }
 
     @Test

@@ -25,16 +25,6 @@ public class UserDTO {
     @PastOrPresent(message = "Birth date must be in the past or present")
     private LocalDate birthDate;
 
-    @NotBlank(message = "Passport is mandatory")
-    private String passport;
-
-    @NotBlank(message = "Phone number is mandatory")
-    private String phoneNumber;
-
-    @Email(message = "Email must be valid")
-    private String email;
-
-    private String address;
 
 }
 

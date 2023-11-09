@@ -34,10 +34,7 @@ class AccountToDtoConverterTest {
         newUser.setFirstName("Kirin");
         newUser.setLastName("Dorian");
         newUser.setBirthDate(LocalDate.of(1990, 5, 12));
-        newUser.setPassport("123456789");
-        newUser.setPhoneNumber("+1234567890");
-        newUser.setEmail("kirin.dorian@example.com");
-        newUser.setAddress("123 Main St");
+
 
         User savedUser = userRepository.save(newUser);
 

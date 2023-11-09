@@ -15,7 +15,6 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @Transactional
@@ -30,7 +29,6 @@ public class CardServiceTest {
     @Autowired
     private AccountService accountService;
 
-    private Long savedUserId;
     private Long savedAccountId;
     private Long savedCardId;
 
@@ -41,13 +39,9 @@ public class CardServiceTest {
         userDTO.setFirstName("John");
         userDTO.setLastName("Doe");
         userDTO.setBirthDate(LocalDate.of(1980, 1, 1));
-        userDTO.setPassport("1234567890");
-        userDTO.setPhoneNumber("123-456-7890");
-        userDTO.setEmail("john.doe@example.com");
-        userDTO.setAddress("123 Example St, Example City, EX");
         UserDTO createdUser = userService.create(userDTO);
         assertNotNull(createdUser.getId());
-        savedUserId = createdUser.getId();
+        Long savedUserId = createdUser.getId();
 
 
         AccountDTO accountDTO = new AccountDTO();
