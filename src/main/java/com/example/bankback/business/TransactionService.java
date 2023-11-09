@@ -2,6 +2,7 @@ package com.example.bankback.business;
 
 import com.example.bankback.data.dto.TransactionDTO;
 import com.example.bankback.data.entity.Transaction;
+import com.example.bankback.data.entity.User;
 import com.example.bankback.data.repository.TransactionRepository;
 import com.example.bankback.data.dto.converters.DtoToTransactionConverter;
 import com.example.bankback.data.dto.converters.TransactionToDtoConverter;
@@ -31,7 +32,9 @@ public class TransactionService extends AbstractCrudService<TransactionDTO, Long
     public void update(TransactionDTO dto, Long id) {
         Transaction existingTransaction = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Transaction not found with id " + id));
-        modelMapper.map(dto, existingTransaction);
+        Transaction updatedTransaction = toEntityConverter.apply(dto);
+        updatedTransaction.setId(existingTransaction.getId());
+        modelMapper.map(updatedTransaction, existingTransaction);
         repository.save(existingTransaction);
     }
 }
