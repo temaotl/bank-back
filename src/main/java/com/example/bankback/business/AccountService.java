@@ -1,8 +1,8 @@
 package com.example.bankback.business;
 
 import com.example.bankback.data.dto.AccountDTO;
-import com.example.bankback.data.dto.converters.AccountToDtoConverter;
-import com.example.bankback.data.dto.converters.DtoToAccountConverter;
+import com.example.bankback.data.dto.converters.account.AccountToDtoConverter;
+import com.example.bankback.data.dto.converters.account.DtoToAccountConverter;
 import com.example.bankback.data.entity.Account;
 import com.example.bankback.data.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -38,4 +39,9 @@ public class AccountService extends AbstractCrudService<AccountDTO, Long, Accoun
                 .map(toDtoConverter)
                 .collect(Collectors.toList());
     }
+
+/*    @Override
+    public Optional<AccountDTO> readById(Long id) {
+        return repository.findById(id).map(toDtoConverter);
+    }*/
 }

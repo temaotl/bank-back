@@ -2,8 +2,8 @@ package com.example.bankback.controller;
 
 import com.example.bankback.business.UserService;
 import com.example.bankback.data.dto.UserDTO;
-import com.example.bankback.data.dto.converters.DtoToUserConverter;
-import com.example.bankback.data.dto.converters.UserToDtoConverter;
+import com.example.bankback.data.dto.converters.user.DtoToUserConverter;
+import com.example.bankback.data.dto.converters.user.UserToDtoConverter;
 import com.example.bankback.data.entity.User;
 import com.example.bankback.data.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,19 +13,21 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.NoSuchElementException;
+import java.util.function.Function;
 
 @RestController
 @RequestMapping("/api/user")
-public class UserController extends AbstractCrudController<User, UserDTO, Long, UserRepository> {
+public class UserController extends AbstractCrudController<User, UserDTO,UserDTO, Long, UserRepository> {
 
     private final UserService userService;
 
     @Autowired
-    public UserController(UserService userService,
-                          UserRepository userRepository,
-                          UserToDtoConverter userToDtoConverter,
-                          DtoToUserConverter dtoToUserConverter) {
-        super(userRepository, userToDtoConverter, dtoToUserConverter);
+    protected UserController(
+            UserService userService,
+            UserRepository repository,
+            UserToDtoConverter toDtoConverter,
+            DtoToUserConverter toEntityConverter) {
+        super(repository, toDtoConverter, toDtoConverter, toEntityConverter);
         this.userService = userService;
     }
 

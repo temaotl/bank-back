@@ -9,38 +9,52 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-public abstract class AbstractCrudController<E, D, ID, R extends CrudRepository<E, ID>> {
+/**
+ *
+ * @param <E> entity
+ * @param <WD> write DTO
+ * @param <RD> read DTO
+ * @param <ID> id type
+ * @param <R> repository
+ */
+public abstract class AbstractCrudController<E, WD,RD, ID, R extends CrudRepository<E, ID>> {
 
     protected final R repository;
-    protected final Function<E, D> toDtoConverter;
-    protected final Function<D, E> toEntityConverter;
+    protected final Function<E, WD> toDtoConverter;
+    protected final Function<WD, E> toEntityConverter;
 
-    protected AbstractCrudController(R repository, Function<E, D> toDtoConverter, Function<D, E> toEntityConverter) {
+    protected final Function<E,RD> toReadDtoConverter;
+
+    protected AbstractCrudController(R repository,
+                                     Function<E, WD> toDtoConverter,
+                                     Function<E,RD> toReadDtoConverter,
+                                     Function<WD, E> toEntityConverter) {
         this.repository = repository;
         this.toDtoConverter = toDtoConverter;
         this.toEntityConverter = toEntityConverter;
+        this.toReadDtoConverter = toReadDtoConverter;
     }
 
     @GetMapping
-    public List<D> getAll() {
+    public List<RD> getAll() {
         return StreamSupport.stream(repository.findAll().spliterator(), false)
-                .map(toDtoConverter)
+                .map(toReadDtoConverter)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<D> getOne(@PathVariable ID id) {
+    public ResponseEntity<RD> getOne(@PathVariable ID id) {
         return repository.findById(id)
-                .map(toDtoConverter)
+                .map(toReadDtoConverter)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public abstract ResponseEntity<D> create(@RequestBody D dto);
+    public abstract ResponseEntity<WD> create(@RequestBody WD dto);
 
     @PutMapping("/{id}")
-    public abstract ResponseEntity<D> update(@RequestBody D dto, @PathVariable ID id);
+    public abstract ResponseEntity<WD> update(@RequestBody WD dto, @PathVariable ID id);
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable ID id) {

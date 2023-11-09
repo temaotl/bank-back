@@ -3,8 +3,8 @@ package com.example.bankback.controller;
 
 import com.example.bankback.business.TransactionService;
 import com.example.bankback.data.dto.TransactionDTO;
-import com.example.bankback.data.dto.converters.DtoToTransactionConverter;
-import com.example.bankback.data.dto.converters.TransactionToDtoConverter;
+import com.example.bankback.data.dto.converters.transaction.DtoToTransactionConverter;
+import com.example.bankback.data.dto.converters.transaction.TransactionToDtoConverter;
 import com.example.bankback.data.entity.Transaction;
 import com.example.bankback.data.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +14,12 @@ import org.springframework.web.bind.annotation.*;
 
 
 import javax.validation.Valid;
+import java.util.function.Function;
 
 
 @RestController
 @RequestMapping("/transaction")
-public class TransactionController extends AbstractCrudController<Transaction, TransactionDTO, Long, TransactionRepository> {
+public class TransactionController extends AbstractCrudController<Transaction, TransactionDTO,TransactionDTO, Long, TransactionRepository> {
 
     private  final TransactionService service;
 
@@ -27,10 +28,9 @@ public class TransactionController extends AbstractCrudController<Transaction, T
                                     TransactionRepository repository,
                                     TransactionToDtoConverter toDtoConverter,
                                     DtoToTransactionConverter toEntityConverter) {
-        super(repository, toDtoConverter, toEntityConverter);
+        super(repository, toDtoConverter, toDtoConverter, toEntityConverter);
         this.service = service;
     }
-
 
     @Override
     @PostMapping

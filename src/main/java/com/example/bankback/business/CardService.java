@@ -1,8 +1,8 @@
 package com.example.bankback.business;
 
 import com.example.bankback.data.dto.CardDTO;
-import com.example.bankback.data.dto.converters.CardToDtoConverter;
-import com.example.bankback.data.dto.converters.DtoToCardConverter;
+import com.example.bankback.data.dto.converters.card.CardToDtoConverter;
+import com.example.bankback.data.dto.converters.card.DtoToCardConverter;
 import com.example.bankback.data.entity.Card;
 import com.example.bankback.data.repository.CardRepository;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.example.bankback.data.dto.converters;
+package com.example.bankback.data.dto.converters.account;
 
 import com.example.bankback.data.dto.AccountDTO;
 import com.example.bankback.data.entity.Account;

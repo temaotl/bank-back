@@ -1,8 +1,7 @@
 package com.example.bankback.business;
 
+import com.example.bankback.data.dto.AccountReadDTO;
 import com.example.bankback.data.dto.UserDTO;
-import com.example.bankback.data.dto.converters.DtoToUserConverter;
-import com.example.bankback.data.entity.Card;
 import com.example.bankback.data.entity.User;
 import com.example.bankback.data.repository.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -11,7 +10,9 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
-import java.util.function.Function;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class UserService extends AbstractCrudService<UserDTO, Long, User, UserRepository> {
@@ -39,4 +40,6 @@ public class UserService extends AbstractCrudService<UserDTO, Long, User, UserRe
         modelMapper.map(updatedUser, existingUser);
         userRepository.save(existingUser);
     }
+
+
 }

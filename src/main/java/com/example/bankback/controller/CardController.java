@@ -4,8 +4,8 @@ package com.example.bankback.controller;
 
 import com.example.bankback.business.CardService;
 import com.example.bankback.data.dto.CardDTO;
-import com.example.bankback.data.dto.converters.CardToDtoConverter;
-import com.example.bankback.data.dto.converters.DtoToCardConverter;
+import com.example.bankback.data.dto.converters.card.CardToDtoConverter;
+import com.example.bankback.data.dto.converters.card.DtoToCardConverter;
 import com.example.bankback.data.entity.Card;
 import com.example.bankback.data.repository.CardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.*;
 
 
 import javax.validation.Valid;
+import java.util.function.Function;
 
 
 @RestController
 @RequestMapping("/cards")
-public class CardController extends AbstractCrudController<Card, CardDTO, Long, CardRepository> {
+
+public class CardController extends AbstractCrudController<Card, CardDTO,CardDTO, Long, CardRepository> {
 
     private final  CardService service;
 
@@ -28,7 +30,7 @@ public class CardController extends AbstractCrudController<Card, CardDTO, Long, 
                              CardRepository repository,
                              CardToDtoConverter toDtoConverter,
                              DtoToCardConverter toEntityConverter) {
-        super(repository, toDtoConverter, toEntityConverter);
+        super(repository, toDtoConverter, toDtoConverter, toEntityConverter);
         this.service = service;
     }
 
