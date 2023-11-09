@@ -15,7 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/user")
 public class UserController extends AbstractCrudController<User, UserDTO, Long, UserRepository> {
 
     private final UserService userService;
