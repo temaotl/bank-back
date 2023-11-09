@@ -5,6 +5,7 @@ import com.example.bankback.business.AccountService;
 import com.example.bankback.business.TransactionService;
 import com.example.bankback.data.dto.AccountDTO;
 import com.example.bankback.data.dto.AccountReadDTO;
+import com.example.bankback.data.dto.TransactionCreationDTO;
 import com.example.bankback.data.dto.TransactionDTO;
 import com.example.bankback.data.dto.converters.account.AccountToDtoConverter;
 import com.example.bankback.data.dto.converters.account.AccountToReadDtoConverter;
@@ -73,6 +74,19 @@ public class AccountController extends AbstractCrudController<Account, AccountDT
         return ResponseEntity.ok(transactions);
     }
 
+    @PostMapping("/{id}/transactions")
+    public ResponseEntity<?> createTransaction(@PathVariable Long id, @RequestBody TransactionCreationDTO creationRequest) {
+        return service.readById(id).map(account -> {
+            TransactionDTO transactionDTO = new TransactionDTO();
+            transactionDTO.setAmount(creationRequest.getAmount());
+            transactionDTO.setDebtor(creationRequest.getDebtor());
+            transactionDTO.setCreditor(account.getIBAN());
+            transactionDTO.setCurrency(account.getCurrency());
+
+            TransactionDTO createdTransaction = transactionService.create(transactionDTO);
+            return new ResponseEntity<>(createdTransaction, HttpStatus.CREATED);
+        }).orElseGet(() -> ResponseEntity.notFound().build());
+    }
 
 }
 
