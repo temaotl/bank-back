@@ -15,9 +15,6 @@ public class AccountDTO {
 
     private Long id;
 
-    @NotBlank(message = "Account number is mandatory")
-    private String accountNumber;
-
     @NotBlank(message = "IBAN is mandatory")
     private String IBAN;
 
