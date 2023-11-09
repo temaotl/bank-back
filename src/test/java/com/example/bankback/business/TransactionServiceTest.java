@@ -24,9 +24,10 @@ public class TransactionServiceTest {
     @BeforeEach
     public void setUp() {
         transactionDTO = new TransactionDTO();
-        transactionDTO.setDate(LocalDateTime.now());
-        transactionDTO.setSenderAccountNumber("12345678901");
-        transactionDTO.setReceiverAccountNumber("10987654321");
+        transactionDTO.setDateCreated(LocalDateTime.now());
+        transactionDTO.setDateExecuted(LocalDateTime.now());
+        transactionDTO.setDebtor("12345678901");
+        transactionDTO.setCreditor("10987654321");
         transactionDTO.setAmount(new BigDecimal("500.00"));
         transactionDTO.setCurrency("EUR");
     }

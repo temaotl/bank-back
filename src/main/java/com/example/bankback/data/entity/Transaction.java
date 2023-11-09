@@ -14,16 +14,19 @@ public class Transaction {
     private Long id;
 
     @Column(nullable = false)
-    private LocalDateTime date;
+    private BigDecimal amount;
 
-    @Column(nullable = true)
-    private String senderAccountNumber;
+    @Column(name = "creditor")
+    private String creditor;
 
-    @Column(nullable = true)
-    private String receiverAccountNumber;
+    @Column(name = "debtor")
+    private String debtor;
 
     @Column(nullable = false)
-    private BigDecimal amount;
+    private LocalDateTime dateCreated;
+
+    @Column(nullable = true)
+    private LocalDateTime dateExecuted;
 
     @Column(nullable = false, length = 3)
     private String currency;
@@ -36,36 +39,44 @@ public class Transaction {
         this.id = id;
     }
 
-    public LocalDateTime getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDateTime date) {
-        this.date = date;
-    }
-
-    public String getSenderAccountNumber() {
-        return senderAccountNumber;
-    }
-
-    public void setSenderAccountNumber(String senderAccountNumber) {
-        this.senderAccountNumber = senderAccountNumber;
-    }
-
-    public String getReceiverAccountNumber() {
-        return receiverAccountNumber;
-    }
-
-    public void setReceiverAccountNumber(String receiverAccountNumber) {
-        this.receiverAccountNumber = receiverAccountNumber;
-    }
-
     public BigDecimal getAmount() {
         return amount;
     }
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    public String getCreditor() {
+        return creditor;
+    }
+
+    public void setCreditor(String creditor) {
+        this.creditor = creditor;
+    }
+
+    public String getDebtor() {
+        return debtor;
+    }
+
+    public void setDebtor(String debtor) {
+        this.debtor = debtor;
+    }
+
+    public LocalDateTime getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(LocalDateTime dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public LocalDateTime getDateExecuted() {
+        return dateExecuted;
+    }
+
+    public void setDateExecuted(LocalDateTime dateExecuted) {
+        this.dateExecuted = dateExecuted;
     }
 
     public String getCurrency() {
@@ -84,22 +95,22 @@ public class Transaction {
         Transaction that = (Transaction) o;
 
         if (!Objects.equals(id, that.id)) return false;
-        if (!Objects.equals(date, that.date)) return false;
-        if (!Objects.equals(senderAccountNumber, that.senderAccountNumber))
-            return false;
-        if (!Objects.equals(receiverAccountNumber, that.receiverAccountNumber))
-            return false;
         if (!Objects.equals(amount, that.amount)) return false;
+        if (!Objects.equals(creditor, that.creditor)) return false;
+        if (!Objects.equals(debtor, that.debtor)) return false;
+        if (!Objects.equals(dateCreated, that.dateCreated)) return false;
+        if (!Objects.equals(dateExecuted, that.dateExecuted)) return false;
         return Objects.equals(currency, that.currency);
     }
 
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (date != null ? date.hashCode() : 0);
-        result = 31 * result + (senderAccountNumber != null ? senderAccountNumber.hashCode() : 0);
-        result = 31 * result + (receiverAccountNumber != null ? receiverAccountNumber.hashCode() : 0);
         result = 31 * result + (amount != null ? amount.hashCode() : 0);
+        result = 31 * result + (creditor != null ? creditor.hashCode() : 0);
+        result = 31 * result + (debtor != null ? debtor.hashCode() : 0);
+        result = 31 * result + (dateCreated != null ? dateCreated.hashCode() : 0);
+        result = 31 * result + (dateExecuted != null ? dateExecuted.hashCode() : 0);
         result = 31 * result + (currency != null ? currency.hashCode() : 0);
         return result;
     }
@@ -108,10 +119,11 @@ public class Transaction {
     public String toString() {
         return "Transaction{" +
                 "id=" + id +
-                ", date=" + date +
-                ", senderAccountNumber='" + senderAccountNumber + '\'' +
-                ", receiverAccountNumber='" + receiverAccountNumber + '\'' +
                 ", amount=" + amount +
+                ", creditor='" + creditor + '\'' +
+                ", debtor='" + debtor + '\'' +
+                ", dateCreated=" + dateCreated +
+                ", dateExecuted=" + dateExecuted +
                 ", currency='" + currency + '\'' +
                 '}';
     }
