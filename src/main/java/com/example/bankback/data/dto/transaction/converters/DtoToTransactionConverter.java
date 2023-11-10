@@ -1,6 +1,6 @@
-package com.example.bankback.data.dto.converters.transaction;
+package com.example.bankback.data.dto.transaction.converters;
 
-import com.example.bankback.data.dto.TransactionDTO;
+import com.example.bankback.data.dto.transaction.TransactionDTO;
 import com.example.bankback.data.entity.Transaction;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -3,13 +3,13 @@ package com.example.bankback.controller;
 
 import com.example.bankback.business.AccountService;
 import com.example.bankback.business.TransactionService;
-import com.example.bankback.data.dto.AccountDTO;
-import com.example.bankback.data.dto.AccountReadDTO;
-import com.example.bankback.data.dto.TransactionCreationDTO;
-import com.example.bankback.data.dto.TransactionDTO;
-import com.example.bankback.data.dto.converters.account.AccountToDtoConverter;
-import com.example.bankback.data.dto.converters.account.AccountToReadDtoConverter;
-import com.example.bankback.data.dto.converters.account.DtoToAccountConverter;
+import com.example.bankback.data.dto.account.AccountDTO;
+import com.example.bankback.data.dto.account.AccountReadDTO;
+import com.example.bankback.data.dto.transaction.TransactionCreationDTO;
+import com.example.bankback.data.dto.transaction.TransactionDTO;
+import com.example.bankback.data.dto.account.converters.AccountToDtoConverter;
+import com.example.bankback.data.dto.account.converters.AccountToReadDtoConverter;
+import com.example.bankback.data.dto.account.converters.DtoToAccountConverter;
 import com.example.bankback.data.entity.Account;
 import com.example.bankback.data.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.function.Function;
 
 @RestController
 @RequestMapping("/api/accounts")

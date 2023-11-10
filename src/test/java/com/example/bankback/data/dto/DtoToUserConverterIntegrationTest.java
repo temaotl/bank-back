@@ -1,6 +1,7 @@
 package com.example.bankback.data.dto;
 
-import com.example.bankback.data.dto.converters.user.DtoToUserConverter;
+import com.example.bankback.data.dto.user.converters.DtoToUserConverter;
+import com.example.bankback.data.dto.user.UserDTO;
 import com.example.bankback.data.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

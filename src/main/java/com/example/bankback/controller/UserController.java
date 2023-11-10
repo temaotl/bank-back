@@ -1,9 +1,9 @@
 package com.example.bankback.controller;
 
 import com.example.bankback.business.UserService;
-import com.example.bankback.data.dto.UserDTO;
-import com.example.bankback.data.dto.converters.user.DtoToUserConverter;
-import com.example.bankback.data.dto.converters.user.UserToDtoConverter;
+import com.example.bankback.data.dto.user.UserDTO;
+import com.example.bankback.data.dto.user.converters.DtoToUserConverter;
+import com.example.bankback.data.dto.user.converters.UserToDtoConverter;
 import com.example.bankback.data.entity.User;
 import com.example.bankback.data.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.NoSuchElementException;
-import java.util.function.Function;
 
 @RestController
 @RequestMapping("/api/user")

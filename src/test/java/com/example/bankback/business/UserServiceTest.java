@@ -3,7 +3,7 @@ package com.example.bankback.business;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-import com.example.bankback.data.dto.UserDTO;
+import com.example.bankback.data.dto.user.UserDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

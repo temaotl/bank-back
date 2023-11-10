@@ -1,7 +1,7 @@
-package com.example.bankback.data.dto.converters.card;
+package com.example.bankback.data.dto.card.converters;
 
 
-import com.example.bankback.data.dto.CardDTO;
+import com.example.bankback.data.dto.card.CardDTO;
 import com.example.bankback.data.entity.Card;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

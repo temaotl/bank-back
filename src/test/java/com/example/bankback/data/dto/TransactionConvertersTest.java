@@ -1,7 +1,8 @@
 package com.example.bankback.data.dto;
 
-import com.example.bankback.data.dto.converters.transaction.DtoToTransactionConverter;
-import com.example.bankback.data.dto.converters.transaction.TransactionToDtoConverter;
+import com.example.bankback.data.dto.transaction.TransactionDTO;
+import com.example.bankback.data.dto.transaction.converters.DtoToTransactionConverter;
+import com.example.bankback.data.dto.transaction.converters.TransactionToDtoConverter;
 import com.example.bankback.data.entity.Transaction;
 import com.example.bankback.data.repository.TransactionRepository;
 import org.junit.jupiter.api.Test;

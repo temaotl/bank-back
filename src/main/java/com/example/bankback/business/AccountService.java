@@ -1,10 +1,10 @@
 package com.example.bankback.business;
 
-import com.example.bankback.data.dto.AccountDTO;
-import com.example.bankback.data.dto.AccountReadDTO;
-import com.example.bankback.data.dto.converters.account.AccountToDtoConverter;
-import com.example.bankback.data.dto.converters.account.AccountToReadDtoConverter;
-import com.example.bankback.data.dto.converters.account.DtoToAccountConverter;
+import com.example.bankback.data.dto.account.AccountDTO;
+import com.example.bankback.data.dto.account.AccountReadDTO;
+import com.example.bankback.data.dto.account.converters.AccountToDtoConverter;
+import com.example.bankback.data.dto.account.converters.AccountToReadDtoConverter;
+import com.example.bankback.data.dto.account.converters.DtoToAccountConverter;
 import com.example.bankback.data.entity.Account;
 import com.example.bankback.data.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 

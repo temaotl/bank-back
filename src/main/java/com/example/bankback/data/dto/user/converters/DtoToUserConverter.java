@@ -1,7 +1,8 @@
-package com.example.bankback.data.dto.converters.user;
+package com.example.bankback.data.dto.user.converters;
+
 
 import com.example.bankback.data.entity.User;
-import com.example.bankback.data.dto.UserDTO;
+import com.example.bankback.data.dto.user.UserDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -9,18 +10,18 @@ import org.springframework.stereotype.Component;
 import java.util.function.Function;
 
 @Component
-public class UserToDtoConverter implements Function<User, UserDTO> {
+public class DtoToUserConverter implements Function<UserDTO, User> {
 
     private final ModelMapper modelMapper;
 
     @Autowired
-    public UserToDtoConverter(ModelMapper modelMapper) {
+    public DtoToUserConverter(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
     }
 
-
     @Override
-    public UserDTO apply(User user) {
-        return modelMapper.map(user, UserDTO.class);
+    public User apply(UserDTO userDTO) {
+        return modelMapper.map(userDTO, User.class);
     }
 }
+

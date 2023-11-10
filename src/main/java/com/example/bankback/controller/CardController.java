@@ -3,9 +3,9 @@ package com.example.bankback.controller;
 
 
 import com.example.bankback.business.CardService;
-import com.example.bankback.data.dto.CardDTO;
-import com.example.bankback.data.dto.converters.card.CardToDtoConverter;
-import com.example.bankback.data.dto.converters.card.DtoToCardConverter;
+import com.example.bankback.data.dto.card.CardDTO;
+import com.example.bankback.data.dto.card.converters.CardToDtoConverter;
+import com.example.bankback.data.dto.card.converters.DtoToCardConverter;
 import com.example.bankback.data.entity.Card;
 import com.example.bankback.data.repository.CardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 
 import javax.validation.Valid;
-import java.util.function.Function;
 
 
 @RestController

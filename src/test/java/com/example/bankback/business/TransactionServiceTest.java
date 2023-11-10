@@ -1,6 +1,6 @@
 package com.example.bankback.business;
 
-import com.example.bankback.data.dto.TransactionDTO;
+import com.example.bankback.data.dto.transaction.TransactionDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

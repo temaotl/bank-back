@@ -2,9 +2,9 @@ package com.example.bankback.controller;
 
 
 import com.example.bankback.business.TransactionService;
-import com.example.bankback.data.dto.TransactionDTO;
-import com.example.bankback.data.dto.converters.transaction.DtoToTransactionConverter;
-import com.example.bankback.data.dto.converters.transaction.TransactionToDtoConverter;
+import com.example.bankback.data.dto.transaction.TransactionDTO;
+import com.example.bankback.data.dto.transaction.converters.DtoToTransactionConverter;
+import com.example.bankback.data.dto.transaction.converters.TransactionToDtoConverter;
 import com.example.bankback.data.entity.Transaction;
 import com.example.bankback.data.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 
 import javax.validation.Valid;
-import java.util.function.Function;
 
 
 @RestController
