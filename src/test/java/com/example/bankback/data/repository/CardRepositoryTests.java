@@ -24,8 +24,6 @@ class CardRepositoryTests {
 
     @Autowired
     private AccountRepository accountRepository;
-    @Autowired
-    private UserRepository userRepository;
 
     @Test
     void shouldSaveAndFindCard() {
