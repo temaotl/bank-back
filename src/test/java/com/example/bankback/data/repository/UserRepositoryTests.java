@@ -13,13 +13,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Transactional
-public class UserRepositoryTests {
+ class UserRepositoryTests {
 
     @Autowired
     private UserRepository userRepository;
 
     @Test
-    public void shouldSaveUser() {
+    void shouldSaveUser() {
         User newUser = new User();
         newUser.setFirstName("Kirin");
         newUser.setLastName("Dorian");

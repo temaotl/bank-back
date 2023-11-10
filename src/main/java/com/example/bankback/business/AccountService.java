@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -40,14 +39,14 @@ public class AccountService extends AbstractCrudService<AccountDTO, Long, Accoun
     public List<AccountReadDTO> findAllByUserId(Long userId) {
         return repository.findByUserId(userId).stream()
                 .map(toReadEntityConverter)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
     @Transactional
     public AccountDTO create(AccountDTO accountDTO) {
-        if (repository.existsByIBAN(accountDTO.getIBAN())) {
-            throw new IllegalStateException("Account with IBAN " + accountDTO.getIBAN() + " already exists");
+        if (repository.existsByIban(accountDTO.getIban())) {
+            throw new IllegalStateException("Account with IBAN " + accountDTO.getIban() + " already exists");
         }
         return super.create(accountDTO);
     }

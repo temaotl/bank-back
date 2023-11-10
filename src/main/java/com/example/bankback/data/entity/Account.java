@@ -3,7 +3,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Objects;
+
 
 
 @Entity
@@ -14,7 +14,7 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false,unique = true)
-    private String IBAN;
+    private String iban;
 
     @Column(nullable = false)
     private String name;

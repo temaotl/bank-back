@@ -42,7 +42,7 @@ class AccountToDtoConverterTest {
 
         Account newAccount = new Account();
         newAccount.setName("Savings Account");
-        newAccount.setIBAN("CZ123456789");
+        newAccount.setIban("CZ123456789");
         newAccount.setBalance(new BigDecimal("1000.00"));
         newAccount.setCurrency("CZK");
         newAccount.setUser(savedUser);
@@ -50,7 +50,7 @@ class AccountToDtoConverterTest {
 
         AccountDTO accountDTO = accountToDtoConverter.apply(newAccount);
         assertThat(accountDTO.getUserId()).isEqualTo(savedUser.getId());
-        assertThat(accountDTO.getIBAN()).isEqualTo(newAccount.getIBAN());
+        assertThat(accountDTO.getIban()).isEqualTo(newAccount.getIban());
         assertThat(accountDTO.getName()).isEqualTo(newAccount.getName());
         assertThat(accountDTO.getBalance()).isEqualByComparingTo(newAccount.getBalance());
         assertThat(accountDTO.getCurrency()).isEqualTo(newAccount.getCurrency());
@@ -58,7 +58,7 @@ class AccountToDtoConverterTest {
 
         Account convertedAccount = dtoToAccountConverter.apply(accountDTO);
         assertThat(convertedAccount.getUser()).isEqualTo(savedUser);
-        assertThat(convertedAccount.getIBAN()).isEqualTo(accountDTO.getIBAN());
+        assertThat(convertedAccount.getIban()).isEqualTo(accountDTO.getIban());
         assertThat(convertedAccount.getName()).isEqualTo(accountDTO.getName());
         assertThat(convertedAccount.getBalance()).isEqualByComparingTo(accountDTO.getBalance());
         assertThat(convertedAccount.getCurrency()).isEqualTo(accountDTO.getCurrency());

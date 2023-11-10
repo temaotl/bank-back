@@ -1,4 +1,4 @@
-package com.example.bankback.CustomException;
+package com.example.bankback.custom_exception;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -10,7 +10,7 @@ import javax.persistence.EntityNotFoundException;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<?> handleEntityNotFoundException(EntityNotFoundException e) {
+    public ResponseEntity<Void> handleEntityNotFoundException(EntityNotFoundException e) {
         return ResponseEntity.notFound().build();
     }
 

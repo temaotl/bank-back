@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface AccountRepository extends CrudRepository<Account, Long> {
     List<Account> findByUserId(Long userId);
-    Optional<Account> findByIBAN(String iban);
+    Optional<Account> findByIban(String iban);
 
-    boolean existsByIBAN(String iban);
+    boolean existsByIban(String iban);
 }

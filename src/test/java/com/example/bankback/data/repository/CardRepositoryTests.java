@@ -17,18 +17,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Transactional
-public class CardRepositoryTests {
+class CardRepositoryTests {
 
     @Autowired
     private CardRepository cardRepository;
 
     @Autowired
     private AccountRepository accountRepository;
-    @Autowired
-    private UserRepository userRepository;
 
     @Test
-    public void shouldSaveAndFindCard() {
+    void shouldSaveAndFindCard() {
 
         User newUser = new User();
         newUser.setFirstName("Kirin");
@@ -37,7 +35,7 @@ public class CardRepositoryTests {
 
         Account newAccount = new Account();
         newAccount.setName("Savings Account");
-        newAccount.setIBAN("CZ1234256789");
+        newAccount.setIban("CZ1234256789");
         newAccount.setBalance(new BigDecimal("1500.00"));
         newAccount.setCurrency("CZK");
         newAccount.setUser(newUser);
@@ -63,7 +61,7 @@ public class CardRepositoryTests {
         assertThat(savedCard.getAccount()).isEqualTo(savedAccount);
 
         Optional<Card> foundCard = cardRepository.findById(savedCard.getId());
-        assertThat(foundCard.isPresent()).isTrue();
+        assertThat(foundCard).isPresent();
         assertThat(foundCard.get()).isEqualTo(savedCard);
     }
 }
