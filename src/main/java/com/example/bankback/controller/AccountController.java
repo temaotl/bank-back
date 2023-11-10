@@ -22,6 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -102,6 +103,16 @@ public class AccountController extends AbstractCrudController<Account, AccountDT
         }
         List<CardReadDTO> cards = cardService.findAllByAccountId(id);
         return ResponseEntity.ok(cards);
+    }
+
+    @GetMapping("/{accountId}/cards/{cardId}")
+    public ResponseEntity<CardReadDTO> getCard(@PathVariable Long accountId, @PathVariable Long cardId) {
+        try {
+            CardReadDTO card = cardService.findByAccountIdAndCardId(accountId, cardId);
+            return ResponseEntity.ok(card);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }

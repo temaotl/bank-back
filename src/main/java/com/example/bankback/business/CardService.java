@@ -1,6 +1,5 @@
 package com.example.bankback.business;
 
-import com.example.bankback.data.dto.account.converters.AccountToReadDtoConverter;
 import com.example.bankback.data.dto.card.CardDTO;
 import com.example.bankback.data.dto.card.CardReadDTO;
 import com.example.bankback.data.dto.card.converters.CardToDtoConverter;
@@ -11,8 +10,10 @@ import com.example.bankback.data.repository.CardRepository;
 import org.springframework.stereotype.Service;
 
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -45,5 +46,14 @@ public class CardService extends  AbstractCrudService<CardDTO,Long, Card, CardRe
         return cards.stream()
                 .map(toReadEntityConverter)
                 .collect(Collectors.toList());
+    }
+
+    public  CardReadDTO findByAccountIdAndCardId(Long cardId, Long accountId)
+    {
+        Optional<Card> card = repository.findByIdAndAccountId(cardId,accountId);
+        if (card.isEmpty()) {
+            throw new EntityNotFoundException("Card not found with id " + cardId + " for account " + accountId);
+        }
+        return  toReadEntityConverter.apply(card.get());
     }
 }
