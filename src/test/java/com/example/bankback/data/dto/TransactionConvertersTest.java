@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Transactional
-public class TransactionConvertersTest {
+class TransactionConvertersTest {
 
     @Autowired
     private TransactionRepository transactionRepository;

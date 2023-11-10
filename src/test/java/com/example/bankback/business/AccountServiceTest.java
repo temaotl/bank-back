@@ -16,7 +16,7 @@ import java.time.LocalDate;
 
 @SpringBootTest
 @Transactional
-public class AccountServiceTest {
+class AccountServiceTest {
 
     @Autowired
     private AccountService accountService;
@@ -27,7 +27,7 @@ public class AccountServiceTest {
     private AccountDTO accountDTO;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
 
         UserDTO userDTO = new UserDTO();
         userDTO.setFirstName("John");
@@ -48,7 +48,7 @@ public class AccountServiceTest {
     }
 
     @Test
-    public void testCreateReadUpdateDelete() {
+    void testCreateReadUpdateDelete() {
         // Create
         AccountDTO createdAccount = accountService.create(accountDTO);
         assertNotNull(createdAccount.getId(), "Account should be successfully created with an ID");

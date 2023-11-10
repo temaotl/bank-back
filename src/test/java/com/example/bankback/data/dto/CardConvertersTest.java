@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Transactional
-public class CardConvertersTest {
+class CardConvertersTest {
 
     @Autowired
     private UserRepository userRepository;

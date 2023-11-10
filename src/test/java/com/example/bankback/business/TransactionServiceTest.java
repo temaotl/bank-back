@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
-public class TransactionServiceTest {
+class TransactionServiceTest {
 
     @Autowired
     private TransactionService transactionService;
@@ -22,7 +22,7 @@ public class TransactionServiceTest {
     private TransactionDTO transactionDTO;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         transactionDTO = new TransactionDTO();
         transactionDTO.setDateCreated(LocalDateTime.now());
         transactionDTO.setDateExecuted(LocalDateTime.now());
@@ -33,19 +33,19 @@ public class TransactionServiceTest {
     }
 
     @Test
-    public void testCreateTransaction() {
+    void testCreateTransaction() {
         TransactionDTO createdTransaction = transactionService.create(transactionDTO);
         assertNotNull(createdTransaction.getId());
     }
 
     @Test
-    public void testReadTransaction() {
+     void testReadTransaction() {
         TransactionDTO createdTransaction = transactionService.create(transactionDTO);
         assertTrue(transactionService.readById(createdTransaction.getId()).isPresent());
     }
 
     @Test
-    public void testUpdateTransaction() {
+    void testUpdateTransaction() {
         TransactionDTO createdTransaction = transactionService.create(transactionDTO);
         createdTransaction.setAmount(new BigDecimal("1000.00"));
         transactionService.update(createdTransaction, createdTransaction.getId());
@@ -56,14 +56,14 @@ public class TransactionServiceTest {
     }
 
     @Test
-    public void testDeleteTransaction() {
+    void testDeleteTransaction() {
         TransactionDTO createdTransaction = transactionService.create(transactionDTO);
         transactionService.deleteById(createdTransaction.getId());
         assertFalse(transactionService.readById(createdTransaction.getId()).isPresent());
     }
 
     @Test
-    public void testReadAllTransactions() {
+    void testReadAllTransactions() {
         transactionService.create(transactionDTO);
         assertFalse(transactionService.readAll().isEmpty());
     }

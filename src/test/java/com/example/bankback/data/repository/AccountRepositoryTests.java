@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Transactional
-public class AccountRepositoryTests {
+class AccountRepositoryTests {
 
     @Autowired
     private AccountRepository accountRepository;
@@ -23,7 +23,7 @@ public class AccountRepositoryTests {
     private UserRepository userRepository;
 
     @Test
-    public void shouldSaveAccount() {
+    void shouldSaveAccount() {
 
         User newUser = new User();
         newUser.setFirstName("Kirin");

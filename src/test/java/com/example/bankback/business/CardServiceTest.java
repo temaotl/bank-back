@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @Transactional
-public class CardServiceTest {
+class CardServiceTest {
 
     @Autowired
     private CardService cardService;

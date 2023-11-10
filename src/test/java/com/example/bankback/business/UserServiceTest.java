@@ -15,7 +15,7 @@ import java.time.LocalDate;
 
 @SpringBootTest
 @Transactional
-public class UserServiceTest {
+class UserServiceTest {
 
     @Autowired
     private UserService userService;
@@ -23,7 +23,7 @@ public class UserServiceTest {
     private UserDTO userDTO;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         userDTO = new UserDTO();
         userDTO.setFirstName("John");
         userDTO.setLastName("Shepard");
@@ -32,7 +32,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testCreateReadUpdateDelete() {
+     void testCreateReadUpdateDelete() {
         // Create
         UserDTO createdUser = userService.create(userDTO);
         assertNotNull(createdUser.getId(), "User should be successfully created with an ID");

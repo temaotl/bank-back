@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Transactional
-public class CardRepositoryTests {
+class CardRepositoryTests {
 
     @Autowired
     private CardRepository cardRepository;
@@ -28,7 +28,7 @@ public class CardRepositoryTests {
     private UserRepository userRepository;
 
     @Test
-    public void shouldSaveAndFindCard() {
+    void shouldSaveAndFindCard() {
 
         User newUser = new User();
         newUser.setFirstName("Kirin");
