@@ -2,9 +2,12 @@ package com.example.bankback.controller;
 
 
 import com.example.bankback.business.AccountService;
+import com.example.bankback.business.CardService;
 import com.example.bankback.business.TransactionService;
 import com.example.bankback.data.dto.account.AccountDTO;
 import com.example.bankback.data.dto.account.AccountReadDTO;
+import com.example.bankback.data.dto.card.CardDTO;
+import com.example.bankback.data.dto.card.CardReadDTO;
 import com.example.bankback.data.dto.transaction.TransactionCreationDTO;
 import com.example.bankback.data.dto.transaction.TransactionDTO;
 import com.example.bankback.data.dto.account.converters.AccountToDtoConverter;
@@ -28,12 +31,14 @@ public class AccountController extends AbstractCrudController<Account, AccountDT
 
     private final AccountService service;
     private final TransactionService transactionService;
+    private final CardService cardService;
 
     private final ModelMapper modelMapper;
 
     @Autowired
     protected AccountController(ModelMapper modelMapper,
                                 AccountService service,
+                                CardService cardService,
                                 TransactionService transactionService,
                                 AccountRepository repository,
                                 AccountToDtoConverter toDtoConverter,
@@ -43,6 +48,7 @@ public class AccountController extends AbstractCrudController<Account, AccountDT
         this.service = service;
         this.transactionService = transactionService;
         this.modelMapper =modelMapper;
+        this.cardService = cardService;
     }
 
     @Override
@@ -88,5 +94,15 @@ public class AccountController extends AbstractCrudController<Account, AccountDT
             return new ResponseEntity<>(createdTransaction, HttpStatus.CREATED);
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+    @GetMapping("/{id}/cards")
+    public ResponseEntity<List<CardReadDTO>> getAccountCards(@PathVariable Long id) {
+        if (service.readById(id).isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        List<CardReadDTO> cards = cardService.findAllByAccountId(id);
+        return ResponseEntity.ok(cards);
+    }
+
 }
 

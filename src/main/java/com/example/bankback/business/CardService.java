@@ -1,7 +1,10 @@
 package com.example.bankback.business;
 
+import com.example.bankback.data.dto.account.converters.AccountToReadDtoConverter;
 import com.example.bankback.data.dto.card.CardDTO;
+import com.example.bankback.data.dto.card.CardReadDTO;
 import com.example.bankback.data.dto.card.converters.CardToDtoConverter;
+import com.example.bankback.data.dto.card.converters.CardToReadDtoConverter;
 import com.example.bankback.data.dto.card.converters.DtoToCardConverter;
 import com.example.bankback.data.entity.Card;
 import com.example.bankback.data.repository.CardRepository;
@@ -9,15 +12,20 @@ import org.springframework.stereotype.Service;
 
 
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CardService extends  AbstractCrudService<CardDTO,Long, Card, CardRepository>  {
 
+    private final CardToReadDtoConverter toReadEntityConverter;
 
-    protected CardService(CardRepository repository,
+    protected CardService(CardToReadDtoConverter toReadEntityConverter,
+                          CardRepository repository,
                           DtoToCardConverter toEntityConverter,
                          CardToDtoConverter toDtoConverter) {
         super(repository, toEntityConverter, toDtoConverter);
+        this.toReadEntityConverter = toReadEntityConverter;
     }
 
     @Override
@@ -29,5 +37,13 @@ public class CardService extends  AbstractCrudService<CardDTO,Long, Card, CardRe
         Card updatedCard = toEntityConverter.apply(cardDTO);
         updatedCard.setId(existingCard.getId());
         repository.save(updatedCard);
+    }
+
+
+    public List<CardReadDTO> findAllByAccountId(Long accountId) {
+        List<Card> cards = repository.findByAccountId(accountId);
+        return cards.stream()
+                .map(toReadEntityConverter)
+                .collect(Collectors.toList());
     }
 }

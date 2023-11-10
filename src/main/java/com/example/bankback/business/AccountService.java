@@ -17,14 +17,14 @@ import java.util.stream.Collectors;
 
 @Service
 public class AccountService extends AbstractCrudService<AccountDTO, Long, Account, AccountRepository> {
-    private final AccountToReadDtoConverter accountToDtoConverter;
+    private final AccountToReadDtoConverter toReadEntityConverter;
 
     @Autowired
     public AccountService(AccountToReadDtoConverter accountToReadDtoConverter,AccountRepository repository,
                           DtoToAccountConverter dtoToAccountConverter,
                           AccountToDtoConverter accountToDtoConverter) {
         super(repository, dtoToAccountConverter, accountToDtoConverter);
-        this.accountToDtoConverter = accountToReadDtoConverter;
+        this.toReadEntityConverter = accountToReadDtoConverter;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class AccountService extends AbstractCrudService<AccountDTO, Long, Accoun
 
     public List<AccountReadDTO> findAllByUserId(Long userId) {
         return repository.findByUserId(userId).stream()
-                .map(accountToDtoConverter)
+                .map(toReadEntityConverter)
                 .collect(Collectors.toList());
     }
 
