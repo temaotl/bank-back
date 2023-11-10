@@ -4,7 +4,9 @@ package com.example.bankback.controller;
 
 import com.example.bankback.business.CardService;
 import com.example.bankback.data.dto.card.CardDTO;
+import com.example.bankback.data.dto.card.CardReadDTO;
 import com.example.bankback.data.dto.card.converters.CardToDtoConverter;
+import com.example.bankback.data.dto.card.converters.CardToReadDtoConverter;
 import com.example.bankback.data.dto.card.converters.DtoToCardConverter;
 import com.example.bankback.data.entity.Card;
 import com.example.bankback.data.repository.CardRepository;
@@ -20,7 +22,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/cards")
 
-public class CardController extends AbstractCrudController<Card, CardDTO,CardDTO, Long, CardRepository> {
+public class CardController extends AbstractCrudController<Card, CardDTO, CardReadDTO, Long, CardRepository> {
 
     private final  CardService service;
 
@@ -28,8 +30,9 @@ public class CardController extends AbstractCrudController<Card, CardDTO,CardDTO
     protected CardController(CardService service,
                              CardRepository repository,
                              CardToDtoConverter toDtoConverter,
+                             CardToReadDtoConverter toReadDtoConverter,
                              DtoToCardConverter toEntityConverter) {
-        super(repository, toDtoConverter, toDtoConverter, toEntityConverter);
+        super(repository, toDtoConverter, toReadDtoConverter, toEntityConverter);
         this.service = service;
     }
 

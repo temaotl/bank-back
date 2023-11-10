@@ -12,6 +12,7 @@ import com.example.bankback.data.dto.account.converters.AccountToReadDtoConverte
 import com.example.bankback.data.dto.account.converters.DtoToAccountConverter;
 import com.example.bankback.data.entity.Account;
 import com.example.bankback.data.repository.AccountRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +29,11 @@ public class AccountController extends AbstractCrudController<Account, AccountDT
     private final AccountService service;
     private final TransactionService transactionService;
 
+    private final ModelMapper modelMapper;
+
     @Autowired
-    protected AccountController(AccountService service,
+    protected AccountController(ModelMapper modelMapper,
+                                AccountService service,
                                 TransactionService transactionService,
                                 AccountRepository repository,
                                 AccountToDtoConverter toDtoConverter,
@@ -38,6 +42,7 @@ public class AccountController extends AbstractCrudController<Account, AccountDT
         super(repository, toDtoConverter, toReadDtoConverter, toEntityConverter);
         this.service = service;
         this.transactionService = transactionService;
+        this.modelMapper =modelMapper;
     }
 
     @Override
@@ -75,9 +80,7 @@ public class AccountController extends AbstractCrudController<Account, AccountDT
     @PostMapping("/{id}/transactions")
     public ResponseEntity<?> createTransaction(@PathVariable Long id, @RequestBody TransactionCreationDTO creationRequest) {
         return service.readById(id).map(account -> {
-            TransactionDTO transactionDTO = new TransactionDTO();
-            transactionDTO.setAmount(creationRequest.getAmount());
-            transactionDTO.setDebtor(creationRequest.getDebtor());
+            TransactionDTO transactionDTO = modelMapper.map(creationRequest, TransactionDTO.class);
             transactionDTO.setCreditor(account.getIBAN());
             transactionDTO.setCurrency(account.getCurrency());
 
@@ -85,6 +88,5 @@ public class AccountController extends AbstractCrudController<Account, AccountDT
             return new ResponseEntity<>(createdTransaction, HttpStatus.CREATED);
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
-
 }
 
