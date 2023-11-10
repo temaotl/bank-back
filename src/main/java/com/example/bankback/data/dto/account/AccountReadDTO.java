@@ -13,8 +13,16 @@ import java.math.BigDecimal;
 public class AccountReadDTO {
 
     private Long id;
+
+    @NotBlank(message = "IBAN is mandatory")
     private String IBAN;
+
+    @NotBlank(message = "Name is mandatory")
     private String name;
+
+    @PositiveOrZero(message = "Balance cannot be negative")
     private BigDecimal balance;
+
+    @NotBlank(message = "Currency is mandatory")
     private String currency;
 }

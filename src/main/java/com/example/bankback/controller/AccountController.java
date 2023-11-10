@@ -6,7 +6,6 @@ import com.example.bankback.business.CardService;
 import com.example.bankback.business.TransactionService;
 import com.example.bankback.data.dto.account.AccountDTO;
 import com.example.bankback.data.dto.account.AccountReadDTO;
-import com.example.bankback.data.dto.card.CardDTO;
 import com.example.bankback.data.dto.card.CardReadDTO;
 import com.example.bankback.data.dto.transaction.TransactionCreationDTO;
 import com.example.bankback.data.dto.transaction.TransactionDTO;
