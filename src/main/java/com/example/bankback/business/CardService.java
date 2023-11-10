@@ -1,5 +1,6 @@
 package com.example.bankback.business;
 
+import com.example.bankback.data.dto.card.CardBlockDTO;
 import com.example.bankback.data.dto.card.CardDTO;
 import com.example.bankback.data.dto.card.CardReadDTO;
 import com.example.bankback.data.dto.card.converters.CardToDtoConverter;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -55,5 +57,17 @@ public class CardService extends  AbstractCrudService<CardDTO,Long, Card, CardRe
             throw new EntityNotFoundException("Card not found with id " + cardId + " for account " + accountId);
         }
         return  toReadEntityConverter.apply(card.get());
+    }
+
+    @Transactional
+    public CardReadDTO updateCardStatus(Long accountId, Long cardId, CardBlockDTO cardBlockDTO) {
+        Card card = repository.findByIdAndAccountId(cardId, accountId)
+                .orElseThrow(() -> new EntityNotFoundException("Card not found with id " + cardId + " for account " + accountId));
+
+        card.setBlocked(cardBlockDTO.getBlocked());
+        card.setDateLocked(card.isBlocked() ? LocalDate.now() : null);
+
+        repository.save(card);
+        return toReadEntityConverter.apply(card);
     }
 }

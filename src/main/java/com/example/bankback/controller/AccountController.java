@@ -6,6 +6,7 @@ import com.example.bankback.business.CardService;
 import com.example.bankback.business.TransactionService;
 import com.example.bankback.data.dto.account.AccountDTO;
 import com.example.bankback.data.dto.account.AccountReadDTO;
+import com.example.bankback.data.dto.card.CardBlockDTO;
 import com.example.bankback.data.dto.card.CardReadDTO;
 import com.example.bankback.data.dto.transaction.TransactionCreationDTO;
 import com.example.bankback.data.dto.transaction.TransactionDTO;
@@ -54,8 +55,15 @@ public class AccountController extends AbstractCrudController<Account, AccountDT
     @Override
     @PostMapping
     public ResponseEntity<AccountDTO> create(@RequestBody AccountDTO dto) {
-        AccountDTO createdAccount = service.create(dto);
-        return new ResponseEntity<>(createdAccount, HttpStatus.CREATED);
+
+        try {
+            AccountDTO createdAccount = service.create(dto);
+            return new ResponseEntity<>(createdAccount, HttpStatus.CREATED);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+
     }
 
     @Override
@@ -113,6 +121,19 @@ public class AccountController extends AbstractCrudController<Account, AccountDT
             return ResponseEntity.notFound().build();
         }
     }
+    @PutMapping("/{accountId}/cards/{cardId}")
+    public  ResponseEntity<CardReadDTO> changeCardState(@PathVariable Long accountId,
+                                                        @PathVariable Long cardId,
+                                                        @RequestBody CardBlockDTO cardBlockDTO)
+    {
+        try {
+            CardReadDTO card = cardService.updateCardStatus(accountId, cardId,cardBlockDTO);
+            return ResponseEntity.ok(card);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
 }
 

@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface AccountRepository extends CrudRepository<Account, Long> {
     List<Account> findByUserId(Long userId);
     Optional<Account> findByIBAN(String iban);
+
+    boolean existsByIBAN(String iban);
 }

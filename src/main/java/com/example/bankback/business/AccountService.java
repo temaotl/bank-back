@@ -43,4 +43,14 @@ public class AccountService extends AbstractCrudService<AccountDTO, Long, Accoun
                 .collect(Collectors.toList());
     }
 
+    @Override
+    @Transactional
+    public AccountDTO create(AccountDTO accountDTO) {
+        if (repository.existsByIBAN(accountDTO.getIBAN())) {
+            throw new IllegalStateException("Account with IBAN " + accountDTO.getIBAN() + " already exists");
+        }
+        return super.create(accountDTO);
+    }
+
+
 }
