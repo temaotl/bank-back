@@ -99,6 +99,7 @@ class CardServiceTest {
         assertThat(updatedCardDTO.get().getBlocked()).isTrue();
     }
 
+
     @Test
     void testDeleteCard() {
         cardService.deleteById(savedCardId);

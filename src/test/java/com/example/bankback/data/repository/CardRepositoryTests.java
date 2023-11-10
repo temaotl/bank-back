@@ -63,7 +63,7 @@ class CardRepositoryTests {
         assertThat(savedCard.getAccount()).isEqualTo(savedAccount);
 
         Optional<Card> foundCard = cardRepository.findById(savedCard.getId());
-        assertThat(foundCard.isPresent()).isTrue();
+        assertThat(foundCard).isPresent();
         assertThat(foundCard.get()).isEqualTo(savedCard);
     }
 }
