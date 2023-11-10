@@ -1,6 +1,6 @@
 package com.example.bankback.business;
 
-import com.example.bankback.CustomException.InsufficientFundsException;
+import com.example.bankback.custom_exception.InsufficientFundsException;
 import com.example.bankback.data.dto.transaction.TransactionDTO;
 import com.example.bankback.data.entity.Account;
 import com.example.bankback.data.entity.Transaction;
@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class TransactionService extends AbstractCrudService<TransactionDTO, Long, Transaction, TransactionRepository> {
@@ -55,7 +54,7 @@ public class TransactionService extends AbstractCrudService<TransactionDTO, Long
         List<Transaction> transactions = repository.findByCreditorOrDebtor(accountIban, accountIban);
         return transactions.stream()
                 .map(toDtoConverter)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

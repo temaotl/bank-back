@@ -1,4 +1,4 @@
-package com.example.bankback.CustomException;
+package com.example.bankback.custom_exception;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

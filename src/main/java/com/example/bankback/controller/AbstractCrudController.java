@@ -6,29 +6,28 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 /**
  *
  * @param <E> entity
- * @param <WD> write DTO
- * @param <RD> read DTO
- * @param <ID> id type
- * @param <R> repository
+ * @param <W> write DTO
+ * @param <R> read DTO
+ * @param <I> id type
+ * @param <T> repository
  */
-public abstract class AbstractCrudController<E, WD,RD, ID, R extends CrudRepository<E, ID>> {
+public abstract class AbstractCrudController<E, W, R, I, T extends CrudRepository<E, I>> {
 
-    protected final R repository;
-    protected final Function<E, WD> toDtoConverter;
-    protected final Function<WD, E> toEntityConverter;
+    protected final T repository;
+    protected final Function<E, W> toDtoConverter;
+    protected final Function<W, E> toEntityConverter;
 
-    protected final Function<E,RD> toReadDtoConverter;
+    protected final Function<E, R> toReadDtoConverter;
 
-    protected AbstractCrudController(R repository,
-                                     Function<E, WD> toDtoConverter,
-                                     Function<E,RD> toReadDtoConverter,
-                                     Function<WD, E> toEntityConverter) {
+    protected AbstractCrudController(T repository,
+                                     Function<E, W> toDtoConverter,
+                                     Function<E, R> toReadDtoConverter,
+                                     Function<W, E> toEntityConverter) {
         this.repository = repository;
         this.toDtoConverter = toDtoConverter;
         this.toEntityConverter = toEntityConverter;
@@ -36,14 +35,14 @@ public abstract class AbstractCrudController<E, WD,RD, ID, R extends CrudReposit
     }
 
     @GetMapping
-    public List<RD> getAll() {
+    public List<R> getAll() {
         return StreamSupport.stream(repository.findAll().spliterator(), false)
                 .map(toReadDtoConverter)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<RD> getOne(@PathVariable ID id) {
+    public ResponseEntity<R> getOne(@PathVariable I id) {
         return repository.findById(id)
                 .map(toReadDtoConverter)
                 .map(ResponseEntity::ok)
@@ -51,13 +50,13 @@ public abstract class AbstractCrudController<E, WD,RD, ID, R extends CrudReposit
     }
 
     @PostMapping
-    public abstract ResponseEntity<WD> create(@RequestBody WD dto);
+    public abstract ResponseEntity<W> create(@RequestBody W dto);
 
     @PutMapping("/{id}")
-    public abstract ResponseEntity<WD> update(@RequestBody WD dto, @PathVariable ID id);
+    public abstract ResponseEntity<W> update(@RequestBody W dto, @PathVariable I id);
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable ID id) {
+    public ResponseEntity<Void> delete(@PathVariable I id) {
         if (repository.existsById(id)) {
             repository.deleteById(id);
             return ResponseEntity.ok().build();

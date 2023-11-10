@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 
@@ -37,7 +36,7 @@ public abstract class AbstractCrudService<D, K, E, R extends CrudRepository<E, K
     public List<D> readAll() {
         return StreamSupport.stream(repository.findAll().spliterator(), false)
                 .map(toDtoConverter)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Transactional

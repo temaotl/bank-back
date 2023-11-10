@@ -16,12 +16,13 @@ import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class CardService extends  AbstractCrudService<CardDTO,Long, Card, CardRepository>  {
 
     private final CardToReadDtoConverter toReadEntityConverter;
+
+    private static final String CARD_NOT_FOUND_MESSAGE = "Card not found with id ";
 
     protected CardService(CardToReadDtoConverter toReadEntityConverter,
                           CardRepository repository,
@@ -35,7 +36,7 @@ public class CardService extends  AbstractCrudService<CardDTO,Long, Card, CardRe
     @Transactional
     public void update(CardDTO cardDTO, Long id) {
         Card existingCard = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Card not found with id " + id));
+                .orElseThrow(() -> new RuntimeException(CARD_NOT_FOUND_MESSAGE + id));
 
         Card updatedCard = toEntityConverter.apply(cardDTO);
         updatedCard.setId(existingCard.getId());
@@ -47,14 +48,14 @@ public class CardService extends  AbstractCrudService<CardDTO,Long, Card, CardRe
         List<Card> cards = repository.findByAccountId(accountId);
         return cards.stream()
                 .map(toReadEntityConverter)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public  CardReadDTO findByAccountIdAndCardId(Long cardId, Long accountId)
     {
         Optional<Card> card = repository.findByIdAndAccountId(cardId,accountId);
         if (card.isEmpty()) {
-            throw new EntityNotFoundException("Card not found with id " + cardId + " for account " + accountId);
+            throw new EntityNotFoundException(CARD_NOT_FOUND_MESSAGE + cardId + " for account " + accountId);
         }
         return  toReadEntityConverter.apply(card.get());
     }
@@ -62,7 +63,7 @@ public class CardService extends  AbstractCrudService<CardDTO,Long, Card, CardRe
     @Transactional
     public CardReadDTO updateCardStatus(Long accountId, Long cardId, CardBlockDTO cardBlockDTO) {
         Card card = repository.findByIdAndAccountId(cardId, accountId)
-                .orElseThrow(() -> new EntityNotFoundException("Card not found with id " + cardId + " for account " + accountId));
+                .orElseThrow(() -> new EntityNotFoundException(CARD_NOT_FOUND_MESSAGE + cardId + " for account " + accountId));
 
         card.setBlocked(cardBlockDTO.getBlocked());
         card.setDateLocked(card.isBlocked() ? LocalDate.now() : null);
