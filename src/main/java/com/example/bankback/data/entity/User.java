@@ -3,9 +3,8 @@ package com.example.bankback.data.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import java.time.LocalDate;
-import java.util.Objects;
+
 
 @Entity
 @Table(name = "users")

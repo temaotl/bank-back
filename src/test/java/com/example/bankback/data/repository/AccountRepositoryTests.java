@@ -35,7 +35,7 @@ public class AccountRepositoryTests {
 
         Account newAccount = new Account();
         newAccount.setName("Savings Account");
-        newAccount.setIBAN("CZ123456789");
+        newAccount.setIban("CZ123456789");
         newAccount.setBalance(new BigDecimal("1000.00"));
         newAccount.setCurrency("CZK");
         newAccount.setUser(savedUser);
@@ -45,7 +45,7 @@ public class AccountRepositoryTests {
 
         assertThat(savedAccount.getId()).isNotNull();
         assertThat(savedAccount.getName()).isEqualTo(newAccount.getName());
-        assertThat(savedAccount.getIBAN()).isEqualTo(newAccount.getIBAN());
+        assertThat(savedAccount.getIban()).isEqualTo(newAccount.getIban());
         assertThat(savedAccount.getBalance()).isEqualTo(newAccount.getBalance());
         assertThat(savedAccount.getCurrency()).isEqualTo(newAccount.getCurrency());
         assertThat(savedAccount.getUser()).isEqualTo(savedUser);

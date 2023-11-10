@@ -37,7 +37,7 @@ public class CardRepositoryTests {
 
         Account newAccount = new Account();
         newAccount.setName("Savings Account");
-        newAccount.setIBAN("CZ1234256789");
+        newAccount.setIban("CZ1234256789");
         newAccount.setBalance(new BigDecimal("1500.00"));
         newAccount.setCurrency("CZK");
         newAccount.setUser(newUser);

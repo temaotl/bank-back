@@ -50,7 +50,7 @@ public class TransactionService extends AbstractCrudService<TransactionDTO, Long
         Account account = accountRepository.findById(accountId)
                 .orElseThrow(() -> new EntityNotFoundException("Account not found with id " + accountId));
 
-        String accountIban = account.getIBAN();
+        String accountIban = account.getIban();
         List<Transaction> transactions = repository.findByCreditorOrDebtor(accountIban, accountIban);
         return transactions.stream()
                 .map(toDtoConverter)
@@ -61,7 +61,7 @@ public class TransactionService extends AbstractCrudService<TransactionDTO, Long
     @Transactional
     public TransactionDTO create(TransactionDTO transactionDTO) {
 
-        Account creditorAccount = accountRepository.findByIBAN(transactionDTO.getCreditor())
+        Account creditorAccount = accountRepository.findByIban(transactionDTO.getCreditor())
                 .orElseThrow(() -> new EntityNotFoundException("Account with IBAN " + transactionDTO.getCreditor() + " not found"));
 
 

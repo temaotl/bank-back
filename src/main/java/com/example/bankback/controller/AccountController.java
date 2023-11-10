@@ -95,7 +95,7 @@ public class AccountController extends AbstractCrudController<Account, AccountDT
     public ResponseEntity<?> createTransaction(@PathVariable Long id, @RequestBody TransactionCreationDTO creationRequest) {
         return service.readById(id).map(account -> {
             TransactionDTO transactionDTO = modelMapper.map(creationRequest, TransactionDTO.class);
-            transactionDTO.setCreditor(account.getIBAN());
+            transactionDTO.setCreditor(account.getIban());
             transactionDTO.setCurrency(account.getCurrency());
 
             TransactionDTO createdTransaction = transactionService.create(transactionDTO);

@@ -15,7 +15,7 @@ public class AccountReadDTO {
     private Long id;
 
     @NotBlank(message = "IBAN is mandatory")
-    private String IBAN;
+    private String iban;
 
     @NotBlank(message = "Name is mandatory")
     private String name;
