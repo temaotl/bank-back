@@ -18,6 +18,10 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service class for transaction management. Extends the generic AbstractCrudService class
+ * to provide operations specifically for Transaction entities.
+ */
 @Service
 public class TransactionService extends AbstractCrudService<TransactionDTO, Long, Transaction, TransactionRepository> {
 
@@ -47,6 +51,12 @@ public class TransactionService extends AbstractCrudService<TransactionDTO, Long
         repository.save(existingTransaction);
     }
 
+    /**
+     * Retrieves all transactions associated with a given account ID.
+     *
+     * @param accountId The ID of the account whose transactions are to be retrieved.
+     * @return A list of TransactionDTOs for the specified account ID.
+     */
     public List<TransactionDTO> findAllByAccountId(Long accountId) {
         Account account = accountRepository.findById(accountId)
                 .orElseThrow(() -> new EntityNotFoundException("Account not found with id " + accountId));
@@ -57,7 +67,13 @@ public class TransactionService extends AbstractCrudService<TransactionDTO, Long
                 .map(toDtoConverter)
                 .toList();
     }
-
+    /**
+     * Overridden create method for creating a new transaction.
+     * Validates account balances and updates them according to the transaction.
+     * if all account are internal provide balance update of 2 account
+     * @param transactionDTO DTO of the transaction to be created.
+     * @return The created TransactionDTO.
+     */
     @Override
     @Transactional
     public TransactionDTO create(TransactionDTO transactionDTO) {
@@ -89,7 +105,6 @@ public class TransactionService extends AbstractCrudService<TransactionDTO, Long
 
         return toDtoConverter.apply(transaction);
     }
-
 
 }
 

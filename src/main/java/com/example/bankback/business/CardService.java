@@ -16,7 +16,10 @@ import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * Service class for card management. Extends the generic AbstractCrudService class
+ * to provide operations specifically for Card entities.
+ */
 @Service
 public class CardService extends  AbstractCrudService<CardDTO,Long, Card, CardRepository>  {
 
@@ -43,14 +46,23 @@ public class CardService extends  AbstractCrudService<CardDTO,Long, Card, CardRe
         repository.save(updatedCard);
     }
 
-
+    /**
+     * Retrieves all card entities associated with a given account ID and returns them as DTOs.
+     * @param accountId the key of the account whose cards are to be retrieved.
+     * @return A list of CardReadDTOs for the specified  accountId.
+     */
     public List<CardReadDTO> findAllByAccountId(Long accountId) {
         List<Card> cards = repository.findByAccountId(accountId);
         return cards.stream()
                 .map(toReadEntityConverter)
                 .toList();
     }
-
+    /**
+     * Retrieves a specific card by its ID and associated account ID.
+     * @param cardId    ID of the card to be retrieved.
+     * @param accountId ID of the account associated with the card.
+     * @return The CardReadDTO of the specified card or throws EntityNotFoundException if the card is not found.
+     */
     public  CardReadDTO findByAccountIdAndCardId(Long cardId, Long accountId)
     {
         Optional<Card> card = repository.findByIdAndAccountId(cardId,accountId);
@@ -59,7 +71,13 @@ public class CardService extends  AbstractCrudService<CardDTO,Long, Card, CardRe
         }
         return  toReadEntityConverter.apply(card.get());
     }
-
+    /**
+     *  Update (block or unblock) card status
+     * @param accountId    ID of the account associated with the card.
+     * @param cardId       ID of the card to update.
+     * @param cardBlockDTO DTO containing the new status of the card.
+     * @return The updated CardReadDTO of the card.
+     */
     @Transactional
     public CardReadDTO updateCardStatus(Long accountId, Long cardId, CardBlockDTO cardBlockDTO) {
         Card card = repository.findByIdAndAccountId(cardId, accountId)

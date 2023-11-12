@@ -13,7 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
+/**
+ * Service class for account management. It extends the generic AbstractCrudService class
+ * to provide CRUD operations specifically for Account entities.
+ */
 @Service
 public class AccountService extends AbstractCrudService<AccountDTO, Long, Account, AccountRepository> {
     private final AccountToReadDtoConverter toReadEntityConverter;
@@ -35,7 +38,11 @@ public class AccountService extends AbstractCrudService<AccountDTO, Long, Accoun
         updatedAccount.setId(existingAccount.getId());
         repository.save(updatedAccount);
     }
-
+    /**
+     * Retrieves all account entities associated with a given user ID and returns them as DTOs.
+     * @param userId The ID of the user.
+     * @return A list of AccountReadDTOs for the specified on the userId param.
+     */
     public List<AccountReadDTO> findAllByUserId(Long userId) {
         return repository.findByUserId(userId).stream()
                 .map(toReadEntityConverter)
@@ -50,6 +57,5 @@ public class AccountService extends AbstractCrudService<AccountDTO, Long, Accoun
         }
         return super.create(accountDTO);
     }
-
 
 }

@@ -10,6 +10,10 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
+/**
+ * Service class for user management. Extends the generic AbstractCrudService class
+ * to provide operations specifically for User entities.
+ */
 @Service
 public class UserService extends AbstractCrudService<UserDTO, Long, User, UserRepository> {
 
