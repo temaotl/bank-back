@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TransactionService extends AbstractCrudService<TransactionDTO, Long, Transaction, TransactionRepository> {
@@ -81,6 +82,10 @@ public class TransactionService extends AbstractCrudService<TransactionDTO, Long
 
         creditorAccount.setBalance(creditorAccount.getBalance().subtract(transactionDTO.getAmount()));
         accountRepository.save(creditorAccount);
+
+        Optional<Account> debtorAccount = accountRepository.findByIban(transactionDTO.getDebtor());
+        debtorAccount.ifPresent(account -> account.setBalance(account.getBalance().add(transactionDTO.getAmount())));
+
 
         return toDtoConverter.apply(transaction);
     }
