@@ -7,7 +7,7 @@ plugins {
 
 }
 
-group = 'com.example.bankback'
+group = 'eu.greyson.sample'
 version = '0.0.1-SNAPSHOT'
 
 repositories {
